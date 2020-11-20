@@ -15,7 +15,7 @@ const SocialShare = [
 const SlideList = [
     {
         textPosition: 'text-left',
-        category: 'Welcome to my World',
+        category: 'Welcome to the World of Guidance',
         description: '',
         buttonText: '',
         buttonLink: ''
@@ -27,42 +27,30 @@ const TabOne = [
     {
         image: '04',
         bigImage: '/assets/images/portfolio/big/dp-big--portfolio-04.jpg',
-        category: 'Frontend Developer',
-        title: 'Daryeel Health',
-        link:'https://app-dev.daryeelhealth.com/',
-        detail: 'React, Redux, SCSS, Express, NodeJs, JavaScript, HTML, CSS, React Native',
-        code:''
+        category: 'Rooted In Mercy ',
+        title: 'We all crave good company, good advice, and good envrionment',
     },
     {
         image: '03',
         bigImage: '/assets/images/portfolio/big/dp-big--portfolio-03.jpg',
-        category: 'Frontend Developer ',
-        title: 'A Better Proffesor App',
-        link:'https://buildweek-better-professor.netlify.app/',
-        detail: 'React, Redux, Styled Components, JavaScript, CSS, Json Web Token, HTML, RESTful API',
-        code:''
+        category: 'People of Knowledge',
+        title: "There are people of knowledge around your block that you didn't even know existed",
     },
     {
         image: '01',
         bigImage: '/assets/images/portfolio/big/dp-big--portfolio-01.jpg',
-        category: 'Web Designer',
-        title: 'Essentialisim - Landing Page',
-        link:'https://essentialismlanding.netlify.app/',
-        detail: 'HTML5, CSS3, LESS Preprocessor, JavaScript, Responsive Design',
-        code:''
+        category: 'Mentorship',
+        title: "There are many that regret not connecting, but it's never too late",
     },
     {
         image: '02',
         bigImage: '/assets/images/portfolio/big/dp-big--portfolio-02.jpg',
-        category: 'Front End Developer',
-        title: 'Github User search',
-        link:'https://github-user-info-search.netlify.app/',
-        detail: 'React, RESTFul API, React Styled Components, JavaScript, CSS, HTML',
-        code:''
+        category: 'Rooted in Knowledge',
+        title: "Interactive way to gain the basic foundational knowledge of your deen",
     }
 ]
 
-class PortfolioLanding extends Component {
+class KnowYourLordLikeHashim extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -72,8 +60,8 @@ class PortfolioLanding extends Component {
     }
     
     render () {
-        let title = 'A bit about me',
-        description = "By leaving collage right after High School for good, I began to design cms based websites for small businesses. Three years laters, I'm a Web Developer with strong knowledge in modern web browser technologies and frameworks. Learn more about me by downloading my CV, checking out my projects, and shooting me a message in the form below. It will go to a MySQL Database hosted in the cloud :) ";
+        let title = 'A bit about the Project',
+        description = " The thing that saved Hashim was the little knowlede of Allah that he had, having an envrionment that he could put that knowledge into practice, and people of knowledge that are rooted in mercy, to talk to when he slipped and tripped. We all deserve that insha Allah.";
 
         const { tab1, isOpen } = this.state;
 
@@ -91,11 +79,12 @@ class PortfolioLanding extends Component {
                                     <div className="col-lg-12">
                                         <div className={`inner ${value.textPosition}`}>
                                             
-                                            <h1 className="title">I’m Falmata Dawano, <br/>
+                                            <h1 className="title" style={{color: 'white'}}>Comprehensive Youth Guidance Program<br/>
                                             <TextLoop interval={1800}>
-                                                <span> Frontend Developer</span>
-                                                <span> Fullstack Developer</span>
-                                                <span> Web Designer</span>
+                                                <span> Knowledge of Allah</span>
+                                                <span> Mentorship</span>
+                                                <span> Activities</span>
+                                                <span> Volunteer Now </span>
                                             </TextLoop>{" "}
                                             </h1>
                                             
@@ -134,11 +123,11 @@ class PortfolioLanding extends Component {
                                         </div>
                                         
                                     </div>
-                                    <div style={{marginTop:'20px'}}>
+                                    {/* <div style={{marginTop:'20px'}}>
                                         <a className="rn-btn" href="/assets/pdf/MyResumeFalmataDawano.pdf" download='falmata-dawano-resume'>
-                                            <span>Download My CV</span>
+                                            <span>Download a small Progam Information Booklet</span>
                                         </a>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -156,7 +145,7 @@ class PortfolioLanding extends Component {
                         <div className="row align-items-end">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="section-title text-center">
-                                    <h2>Portfolio</h2>
+                                    <h2> Detailed Programs, Each with Mentorship and real world Application. In collaboration with Al Amaan Center</h2>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +159,6 @@ class PortfolioLanding extends Component {
                                             nextSrc={TabOne[(tab1 + 1) % TabOne.length]}
                                             prevSrc={TabOne[(tab1 + TabOne.length - 1) % TabOne.length]}
                                             onCloseRequest={() => this.setState({ isOpen: false })}
-                                            imageCaption={[<h3 style={{color: 'white'}}>{TabOne[tab1].detail}</h3>]}
                                             onMovePrevRequest={() =>
                                             this.setState({
                                                 tab1: (tab1 + TabOne.length - 1) % TabOne.length,
@@ -181,7 +169,6 @@ class PortfolioLanding extends Component {
                                                     tab1: (tab1 + 1) % TabOne.length,
                                                 })
                                             }
-                                            toolbarButtons={[<a href={`${TabOne[tab1].link}`} style={{marginTop:'7px', marginRight:'5px', textAlign: 'center', padding: '5px', display: 'revert' }} className="rn-button-style--2 btn-solid" id="mc-embedded-subscribe">Visit</a>]}
                                         />
                                     )}
                                     <div className="item-portfolio-static">
@@ -189,7 +176,7 @@ class PortfolioLanding extends Component {
                                             <div className="portfolio-static">
                                                 <div className="thumbnail-inner">
                                                     <div className="thumbnail">
-                                                        <a href="#portfolio-details">
+                                                        <a href="#">
                                                             <img src={`/assets/images/portfolio/big/dp-big--portfolio-${value.image}.jpg`} alt="Portfolio Images"/>
                                                         </a>
                                                     </div>
@@ -197,7 +184,7 @@ class PortfolioLanding extends Component {
                                                 <div className="content">
                                                     <div className="inner">
                                                         <p>{value.category}</p>
-                                                        <h4><a href="#portfolio-details">{value.title}</a></h4>
+                                                        <h4><a href="#">{value.title}</a></h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,7 +203,7 @@ class PortfolioLanding extends Component {
             {/* Start COntact Area */}
             <div id="contact" className="fix active-dark">
                 <div className="rn-contact-area ptb--120 bg_color--1">
-                    <ContactThree contactImages="/assets/images/about/about-9.jpg" contactTitle="Hire Me." />
+                    <ContactThree contactImages="/assets/images/about/about-9.jpg" contactTitle="Commit to Help with Whatever Skill You got" />
                 </div>
             </div>
             {/* End COntact Area */}
@@ -234,4 +221,4 @@ class PortfolioLanding extends Component {
     }
 }
 
-export default PortfolioLanding;
+export default KnowYourLordLikeHashim;

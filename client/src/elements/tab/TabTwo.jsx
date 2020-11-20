@@ -46,21 +46,15 @@ class TabsTwo extends Component{
                                                 </li>
                                             </ul>
                                         </div>
-                                        <codersrank-widget style={{"--header-bg-color": "rgb(152 154 165)"}} username="falmatad"></codersrank-widget>
                                     </TabPanel>
 
                                     <TabPanel>
                                        <div className="single-tab-content">
                                            <ul>
                                                <li>
-                                                   <a href="/service"> Software Engineer <span> - Zefa Consulting Inc</span></a> 03/2020 - Current
+                                                   <p> That Big brother Big Sis Feeling is sunnah of the prophet Sallahu Aleyhi wa sallam <span> "There has certainly come to you a Messenger from among yourselves. Grievous to him is what you suffer; [he is] concerned over you [i.e., your guidance] and to the believers is kind and merciful. (Quran: 9:128)"</span></p> 
                                                </li>
-                                               <li>
-                                                   <a href="/service"> Self Employed Coding Instructor <span> EveryoneShouldCode LLC</span></a> 06/2019 - Current
-                                               </li>
-                                               <li>
-                                                   <a href="/service"> Public School Coding Instructor <span> - Youth Enrichment League</span></a> 10/2018 - Current
-                                               </li>
+                                               
                                            </ul>
                                        </div>
                                     </TabPanel>
@@ -69,7 +63,13 @@ class TabsTwo extends Component{
                                        <div className="single-tab-content">
                                            <ul>
                                                <li>
-                                                   <a href="/service">Web Development<span> - Lambda School, Remote Agile Learning</span></a> 09/2019 - 01/2020
+                                                   <a href="/service">By Gender<span> - Divided into Young Mens Activities and Young Womens Activities</span></a>
+                                               </li>
+                                               <li>
+                                                   <a href="/service">By Interest<span> - Based on Your Interest</span></a> 
+                                               </li>
+                                               <li>
+                                                   <a href="/service">By Schedule<span> - Based on Your Schedule</span></a> 
                                                </li>
                                            </ul>
                                        </div>
