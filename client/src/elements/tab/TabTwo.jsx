@@ -27,12 +27,12 @@ class TabsTwo extends Component{
                                             <ul>
                                                 <li>
                                                     <a href="/service">The Religion of Islam</a>
-                                                    A religion so strong, it's interconnected and weaved to never fail better your designer jacket
+                                                    A religion so strong, it's interconnected and weaved to never fail
                                                 </li>
 
                                                 <li>
                                                     <a href="/service"> A Perfect and High Lord yet Subtle and Merciful </a>
-                                                    A lord that so many lied against and a lord that so many don't know
+                                                    A lord that so many left but yet he still patient
                                                 </li>
 
                                                 <li>

@@ -145,7 +145,7 @@ class KnowYourLordLikeHashim extends Component {
                         <div className="row align-items-end">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="section-title text-center">
-                                    <h2> Detailed Programs, Each with Mentorship and real world Application. In collaboration with Al Amaan Center</h2>
+                                    <h2> Detailed Programs, Each with Mentorship and Custom Activities. In collaboration with Al Amaan Center</h2>
                                 </div>
                             </div>
                         </div>

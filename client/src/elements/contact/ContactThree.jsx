@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment"
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 class ContactThree extends Component{
     constructor(props){
@@ -23,7 +24,7 @@ class ContactThree extends Component{
         
         const {firstName, lastName, email, company, detailedMessage, contactDate} = this.state
 
-        axios.post('https://portfolio-node-backend-app.herokuapp.com/api/insert-form',
+        axios.post('https://like-hashim-backend.herokuapp.com/api/insert-form',
         {
             firstName: firstName,
             lastName: lastName,
@@ -66,7 +67,7 @@ class ContactThree extends Component{
                             <div className="section-title text-left mb--50">
                                 <h2 className="title">{this.props.contactTitle}</h2>
                                 <p className="description">Will this not soften our heart and make us strive to reconnect with our creator? Reach to volunteer [REMOTELY FROM HOME] out by: <a href="tel:+1(952)855-2202">(952)855-2202</a>, email:
-                                    <a href="mailto:falmata.dawano@gmail.com"> falmata.dawano@gmail.com</a>, or the form below. Lets not crash the server insha Allah as it's still in development.</p>
+                                    <a href="mailto:falmata.dawano@gmail.com"> falmata.dawano@gmail.com</a>, or the form below. Lets not crash the server insha Allah as it's still in development. Click the send button and wait few second to get success response!</p>
                             </div>
                             <div className="form-wrapper">
                                 <form onSubmit={this.handelSubmit}>
