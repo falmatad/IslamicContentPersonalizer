@@ -4,9 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 class TabsTwo extends Component{
     render(){
         let 
-        tab1 = "Main skills",
-        tab2 = "Experience",
-        tab3 = "Education";
+        tab1 = "Knowledge of Allah",
+        tab2 = "Mentorship",
+        tab3 = "Activities";
         const { tabStyle } = this.props
         return(
             <div>
@@ -26,23 +26,23 @@ class TabsTwo extends Component{
                                         <div className="single-tab-content">
                                             <ul>
                                                 <li>
-                                                    <a href="/service">User Interface Development</a>
-                                                    Build reusable User Interfaces that scale with the overall application using tech-stack such as Vanilla JavaScript, React, Redux, Responsive Styled Components, and more
+                                                    <a href="/service">The Religion of Islam</a>
+                                                    A religion so strong, it's interconnected and weaved to never fail better your designer jacket
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> NodeJs Backend With ExpressJs</a>
-                                                    Expose Nodejs APIs using ExpressJs with proper async response and error handling 
+                                                    <a href="/service"> A Perfect and High Lord yet Subtle and Merciful </a>
+                                                    A lord that so many lied against and a lord that so many don't know
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> Responsive Web Design</a>
-                                                    Build responsive sites that delight each mouse click and hover. I use vanilla CSS, CSS within JavaScript, and CSS Preprocessors like Less
+                                                    <a href="/service"> A Perfect Prophet yet humble and low so he can be followed</a>
+                                                    Muhammed The Son of Abdullah - He was even decreed to be the greatest Human being on google's list
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> MySQL Relational Database</a>
-                                                    Build and Host MySQL database on the Cloud
+                                                    <a href="/service"> An Ummah that's lost but yet with 2 lights that never die</a>
+                                                    Quran and Sunnah
                                                 </li>
                                             </ul>
                                         </div>
