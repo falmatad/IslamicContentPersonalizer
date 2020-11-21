@@ -60,9 +60,17 @@ class KnowYourLordLikeHashim extends Component {
     }
     
     componentDidMount() {
-        if (window.instgrm) {
-        window.instgrm.Embeds.process();
+       
+        function waitForElement(){
+            if(typeof window.instgrm !== "undefined"){
+                console.log(window.instgrm)
+                window.instgrm.Embeds.process();
+            }
+            else{
+                setTimeout(waitForElement, 250);
+            }
         }
+        waitForElement()
     }
     render () {
         let title = 'A bit about the Project',
