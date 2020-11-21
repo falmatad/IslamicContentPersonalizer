@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment"
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 class ContactThree extends Component{
     constructor(props){
@@ -23,7 +24,7 @@ class ContactThree extends Component{
         
         const {firstName, lastName, email, company, detailedMessage, contactDate} = this.state
 
-        axios.post('https://portfolio-node-backend-app.herokuapp.com/api/insert-form',
+        axios.post('https://like-hashim-backend.herokuapp.com/api/insert-form',
         {
             firstName: firstName,
             lastName: lastName,
@@ -41,12 +42,12 @@ class ContactThree extends Component{
                     detailedMessage: '',
                     contactDate: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss")
                 })
-                this.setState({success: 'green', alert: "Thanks, your info was sent to me :)"})
+                this.setState({success: 'green', alert: "Barak Allahu Feek, your info was sent to the database :)"})
             }
         }).catch((error) => {
                     if (error) {
                         this.setState({
-                            success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again"
+                            success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
                         })
                     }
         });
@@ -65,8 +66,8 @@ class ContactThree extends Component{
                         <div className="col-lg-6 order-2 order-lg-1">
                             <div className="section-title text-left mb--50">
                                 <h2 className="title">{this.props.contactTitle}</h2>
-                                <p className="description">I am available for direct hire, contract, intership, and freelance roles. Reach out to me by phone: <a href="tel:+1(952)855-2202">(952)855-2202</a>, email:
-                                    <a href="mailto:falmata.dawano@gmail.com"> falmata.dawano@gmail.com</a>, or the form below.</p>
+                                <p className="description">Will this not soften our heart and make us strive to reconnect with our creator? Reach to volunteer [REMOTELY FROM HOME] out by: <a href="tel:+1(952)855-2202">(952)855-2202</a>, email:
+                                    <a href="mailto:falmata.dawano@gmail.com"> falmata.dawano@gmail.com</a>, or the form below. Lets not crash the server insha Allah as it's still in development. Click the send button and wait few second to get success response!</p>
                             </div>
                             <div className="form-wrapper">
                                 <form onSubmit={this.handelSubmit}>
@@ -106,16 +107,6 @@ class ContactThree extends Component{
                                         />
                                     </label>
 
-                                    <label htmlFor="item03">
-                                        <input
-                                            type="text"
-                                            name="company"
-                                            id="item04"
-                                            value={this.state.company}
-                                            onChange={(e)=>{this.setState({company: e.target.value});}}
-                                            placeholder="Company"
-                                        />
-                                    </label>
                                     <label htmlFor="item04">
                                         <textarea
                                             type="text"
@@ -123,13 +114,13 @@ class ContactThree extends Component{
                                             name="detailedMessage"
                                             value={this.state.detailedMessage}
                                             onChange={(e)=>{this.setState({detailedMessage: e.target.value});}}
-                                            placeholder="Your Detailed Message for me..."
+                                            placeholder="A Detailed discription of your Skill or way to help with the effort..."
                                         />
                                     </label>
                                     </>
                                     : null}
                                     <div className="section-title text-left mb--50">{ this.state.success !== ""? <p style={{color: this.state.success, margin: '5px'}}>{this.state.alert}</p> : null}</div>
-                                    { this.state.alert === '' ? <button className="rn-button-style--2 btn-solid" type="submit" value="submit" name="submit" id="mc-embedded-subscribe">Send</button>: null}
+                                    { this.state.alert === '' ? <button className="rn-button-style--2 btn-solid" type="submit" value="submit" name="submit" id="mc-embedded-subscribe">Bismillah-Send</button>: null}
                                 </form>
                             </div>
                         </div>

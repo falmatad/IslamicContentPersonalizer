@@ -4,9 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 class TabsTwo extends Component{
     render(){
         let 
-        tab1 = "Main skills",
-        tab2 = "Experience",
-        tab3 = "Education";
+        tab1 = "Knowledge of Allah",
+        tab2 = "Mentorship",
+        tab3 = "Activities";
         const { tabStyle } = this.props
         return(
             <div>
@@ -26,41 +26,32 @@ class TabsTwo extends Component{
                                         <div className="single-tab-content">
                                             <ul>
                                                 <li>
-                                                    <a href="/service">User Interface Development</a>
-                                                    Build reusable User Interfaces that scale with the overall application using tech-stack such as Vanilla JavaScript, React, Redux, Responsive Styled Components, and more
+                                                    A religion so strong, it's interconnected and weaved to never fail
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> NodeJs Backend With ExpressJs</a>
-                                                    Expose Nodejs APIs using ExpressJs with proper async response and error handling 
+                                                     A Perfect and High Lord yet Subtle and Merciful
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> Responsive Web Design</a>
-                                                    Build responsive sites that delight each mouse click and hover. I use vanilla CSS, CSS within JavaScript, and CSS Preprocessors like Less
+                                                    A Perfect Prophet yet humble and low so he can be followed
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> MySQL Relational Database</a>
-                                                    Build and Host MySQL database on the Cloud
+                                                    An Ummah that's lost but yet with 2 lights that never die Quran and Sunnah
+                                                    
                                                 </li>
                                             </ul>
                                         </div>
-                                        <codersrank-widget style={{"--header-bg-color": "rgb(152 154 165)"}} username="falmatad"></codersrank-widget>
                                     </TabPanel>
 
                                     <TabPanel>
                                        <div className="single-tab-content">
                                            <ul>
                                                <li>
-                                                   <a href="/service"> Software Engineer <span> - Zefa Consulting Inc</span></a> 03/2020 - Current
+                                                   <p> That Big brother Big Sis Feeling is sunnah of the prophet Sallahu Aleyhi wa sallam <span> "There has certainly come to you a Messenger from among yourselves. Grievous to him is what you suffer; [he is] concerned over you [i.e., your guidance] and to the believers is kind and merciful. (Quran: 9:128)"</span></p> 
                                                </li>
-                                               <li>
-                                                   <a href="/service"> Self Employed Coding Instructor <span> EveryoneShouldCode LLC</span></a> 06/2019 - Current
-                                               </li>
-                                               <li>
-                                                   <a href="/service"> Public School Coding Instructor <span> - Youth Enrichment League</span></a> 10/2018 - Current
-                                               </li>
+                                               
                                            </ul>
                                        </div>
                                     </TabPanel>
@@ -69,19 +60,26 @@ class TabsTwo extends Component{
                                        <div className="single-tab-content">
                                            <ul>
                                                <li>
-                                                   <a href="/service">Web Development<span> - Lambda School, Remote Agile Learning</span></a> 09/2019 - 01/2020
+                                                   <a href="/service">By Gender<span> - Divided into Young Mens Activities and Young Womens Activities</span></a>
+                                               </li>
+                                               <li>
+                                                   <a href="/service">By Interest<span> - Based on Your Interest</span></a> 
+                                               </li>
+                                               <li>
+                                                   <a href="/service">By Schedule<span> - Based on Your Schedule</span></a> 
                                                </li>
                                            </ul>
                                        </div>
                                     </TabPanel>
-                                    
                                 </Tabs>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
                 {/* End Tabs Area */}
             </div>
+            
         )
     }
 }
