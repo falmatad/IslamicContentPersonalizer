@@ -59,6 +59,11 @@ class KnowYourLordLikeHashim extends Component {
         };
     }
     
+    componentDidMount() {
+        if (window.instgrm) {
+        window.instgrm.Embeds.process();
+        }
+    }
     render () {
         let title = 'A bit about the Project',
         description = " The thing that saved Hashim was the little knowlede of Allah that he had, an environment that he could put that knowledge into practice, and a company people of knowledge that are rooted in mercy to talk to when he slipped and tripped. We all deserve that insha Allah.";
