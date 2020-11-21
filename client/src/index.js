@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 import './index.scss';
 
-import DarkPortfolioLanding from './dark/PortfolioLanding';
+import KnowYourLordLikeHashim from './dark/KnowYourLordLikeHashim';
 
 import error404 from "./elements/error404";
 import HttpsRedirect from 'react-https-redirect'
@@ -19,7 +19,7 @@ class Root extends Component{
             <HttpsRedirect>
             <BrowserRouter basename={'/'}>
                 <Switch>
-                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={DarkPortfolioLanding}/>
+                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={KnowYourLordLikeHashim}/>
                     
                     <Route path={`${process.env.PUBLIC_URL}/404`} component={error404}/>
                     <Route component={error404}/>

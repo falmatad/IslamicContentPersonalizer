@@ -61,6 +61,7 @@
     "react-https-redirect": "^1.1.0",
     "react-icons": "^3.8.0",
     "react-image-lightbox": "^5.1.1",
+    "react-loader-spinner": "^3.1.14",
     "react-modal-video": "^1.2.3",
     "react-parallax": "^3.0.3",
     "react-particles-js": "^2.7.0",
