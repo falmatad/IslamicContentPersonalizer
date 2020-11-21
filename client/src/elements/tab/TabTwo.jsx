@@ -26,23 +26,20 @@ class TabsTwo extends Component{
                                         <div className="single-tab-content">
                                             <ul>
                                                 <li>
-                                                    <a href="/service">The Religion of Islam</a>
                                                     A religion so strong, it's interconnected and weaved to never fail
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> A Perfect and High Lord yet Subtle and Merciful </a>
-                                                    A lord that so many left but yet he still patient
+                                                     A Perfect and High Lord yet Subtle and Merciful
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> A Perfect Prophet yet humble and low so he can be followed</a>
-                                                    Muhammed The Son of Abdullah - He was even decreed to be the greatest Human being on google's list
+                                                    A Perfect Prophet yet humble and low so he can be followed
                                                 </li>
 
                                                 <li>
-                                                    <a href="/service"> An Ummah that's lost but yet with 2 lights that never die</a>
-                                                    Quran and Sunnah
+                                                    An Ummah that's lost but yet with 2 lights that never die Quran and Sunnah
+                                                    
                                                 </li>
                                             </ul>
                                         </div>
@@ -74,14 +71,15 @@ class TabsTwo extends Component{
                                            </ul>
                                        </div>
                                     </TabPanel>
-                                    
                                 </Tabs>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
                 {/* End Tabs Area */}
             </div>
+            
         )
     }
 }

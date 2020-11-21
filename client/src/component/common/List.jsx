@@ -4,9 +4,9 @@ import { FiCheck } from "react-icons/fi";
 class ListOne extends Component{
     render(){
         var names = [
-            'Fullstack Developer',
-            'Frontend Developer',
-            'Responsive Web Designer'
+            'Knowledge of Allah',
+            'Mentorship',
+            'Activities'
         ];
         return(
             <ul className="list-style--1">
