@@ -270,32 +270,13 @@ class KnowYourLordLikeHashim extends Component {
                 {/* End Area  */}  
 
             {/* Start Area */}
+            
             <div id="contact" className="fix active-dark">
                 <div className="rn-contact-area ptb--120 bg_color--1">
                     <ContactThree contactImages="/assets/images/about/about-9.jpg" contactTitle="Customized Guidance Program: no matter where you at in life" />
                 </div>
             </div>
-            <div id="portfolio" className="fix light" >
-                <div className="row align-items-end">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div className="section-title text-center">
-                            <h2 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}}> Personalized Page Demo</h2>
-                        </div>
-                    </div>
-                </div>
-                {/* <div className="row "  style={{textAlign:'center'}}>
-                    {podcast.map((cast, i) => {
-                        return <div className="col-lg-6"><div className = 'item-portfolio-static' key={i}> <div className="thumbnail-inner"><div className='thumbnail'>{cast}</div></div></div></div>
-                    })}
-                </div> */}
-                
-                {/* <ReactPlayer
-                    url={[...videoIds]}
-                /> */}
-                {/* <ReactPlayer
-                    url={[...videoIds]}
-                /> */}
-            </div> 
+
             {/* End COntact Area
 
             {/* Start Back To Top */}

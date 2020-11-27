@@ -21,6 +21,7 @@ import {
   import CustomSelectInput from "../../component/common/CustomSelectInput";
   import { TopNavigation } from "../../component/wizard/TopNavigation";
   import { BottomNavigation } from "../../component/wizard/BottomNavigation";
+  import ReactPlayer from 'react-player';
   import moment from "moment";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -154,17 +155,18 @@ class ContactThree extends Component{
     
       onClickNext(goToNext, steps, step) {
         step.isDone = true;
-    
         if (steps.indexOf(step) <= 1) {
+            this.setState({ nextLabel: "Next" });
+          } else if (steps.indexOf(step) <= 2) {
           this.setState({ nextLabel: "Next" });
-        } else if (steps.indexOf(step) === 2) {
+        } else if (steps.indexOf(step) === 3) {
           this.setState({ nextLabel: "Submit Profile" });
           if (this.state.id) {
             this.setState({ nextLabel: "Update Profile" });
           }
-        } else if (steps.indexOf(step) === 3) {
+        } else if (steps.indexOf(step) === 4) {
             this.setState({
-                claimId: `PH${new Array(9)
+                id: `PH${new Array(9)
                   .fill()
                   .map((a, i) => (a = i))
                   .sort(() => Math.random() - 0.5)
@@ -268,21 +270,21 @@ class ContactThree extends Component{
                     topNavClick={this.topNavClick}
                   />
                   <Steps>
-                    <Step id="step1" name="Member" desc="Member Details">
+                    <Step id="step1" name="Create Account">
                       <div className="wizard-basic-step">
                         <Form
                           className="av-tooltip tooltip-label-bottom"
                           autoComplete="off"
                         >
-                          <div className="col-6 row">
-                            <FormGroup className="col-12 input-group-sm">
+                          <div className="col-12 row">
+                            <FormGroup className="col-6 input-group-sm">
                             <Label>First Name</Label>
                                 <Input
                                     className="form-control form-control-sm"
                                     name="firstName"
                                     type="text"
                                     placeholder="Description"
-                                    value={this.state.firstName || ""}
+                                    value={this.state.firstName}
                                     onChange={(value) => {
                                         this.handleChange("firstName", value);
                                       }}
@@ -293,28 +295,32 @@ class ContactThree extends Component{
                                     name="lastName"
                                     type="text"
                                     placeholder="Last Name"
-                                    value={this.state.lastName || ""}
+                                    value={this.state.lastName}
                                     onChange={(value) => {
                                         this.handleChange("lastName", value);
                                       }}
                                 />
-                              <Label>Email</Label>
+                              
+                            </FormGroup>
+                        
+                            <FormGroup className="col-6 input-group-sm">
+                                <Label>Email</Label>
                                 <Input
                                     className="form-control form-control-sm"
                                     name="email"
                                     type="text"
                                     placeholder="Email"
-                                    value={this.state.email || ""}
+                                    value={this.state.email}
                                     onChange={(value) => {
                                         this.handleChange("email", value);
-                                      }}
+                                        }}
                                 />
                             </FormGroup>
-                          </div>
+                        </div>
                         </Form>
                       </div>
                     </Step>
-                    <Step id="step2" name="Visit" desc="Pharmacy Visit">
+                    <Step id="step2" name="Basic Info">
                       <div className="wizard-basic-step">
                         <Form
                           className="av-tooltip tooltip-label-bottom"
@@ -354,14 +360,14 @@ class ContactThree extends Component{
                         </Form>
                       </div>
                     </Step>
-                    <Step id="step3" name="Reports" desc="Visit Reports">
+                    <Step id="step3" name="Personalize">
                         <div className="wizard-basic-step">
                         <Form
                           className="av-tooltip tooltip-label-bottom"
                           autoComplete="off"
                         >
                             <div className="row">
-                            <FormGroup>
+                            <FormGroup className="col-12">
                                 <Label>The hidden aspect of my worship I struggle with:</Label>
                                 <Select
                                   components={{ Input: CustomSelectInput }}
@@ -394,7 +400,7 @@ class ContactThree extends Component{
                             </div>
 
                             <div className='row'>
-                            <FormGroup>
+                            <FormGroup className="col-12">
                                 <Label>Deep down, I lack:</Label>
                                 <Select
                                   components={{ Input: CustomSelectInput }}
@@ -425,51 +431,12 @@ class ContactThree extends Component{
                                 />
                               </FormGroup>
                             </div>
-                            {/* {this.state.tags &&
-                            this.state.tags.length ? (
-                              <div className="row">
-                                <div className="col-6">
-                                  <Table className="table-vm-middle">
-                                    <tbody>
-                                      {this.state.tags.map((tag, i) => {
-                                        return (
-                                          <tr key={tag.label}>
-                                            <td>{tag.label}</td>
-                                            <td>
-                                              <FormGroup className="input-group-sm mb-0">
-                                                <Input
-                                                  className="form-control form-control-sm"
-                                                  name="visitProcedureDescription"
-                                                  type="text"
-                                                  placeholder="Description"
-                                                  value={tag.description || ""}
-                                                  onChange={(e) => {
-                                                    let tags = [
-                                                      ...this.state.tags,
-                                                    ];
-                                                    tags[i].description =
-                                                      e.target.value;
-                                                    this.setState({
-                                                      tags,
-                                                    });
-                                                  }}
-                                                />
-                                              </FormGroup>
-                                            </td>
-                                          </tr>
-                                        );
-                                      })}
-                                    </tbody>
-                                  </Table>
-                                </div>
-                              </div>
-                            ) : null} */}
                             </Form>
                       </div>
                     </Step>
-                    <Step id="step4" name="Reports" desc="Visit Reports">
+                    <Step id="step4" name="Describe Youself">
                     <div className="wizard-basic-step">
-                    <FormGroup className="col-7">
+                    <FormGroup className="col-12">
                           <ReactQuill
                             theme="snow"
                             value={this.state.aboutYou}
@@ -482,7 +449,7 @@ class ContactThree extends Component{
                         </FormGroup>
                       </div>
                     </Step>
-                    <Step id="step5" name="Summary" desc="Claim Summary">
+                    <Step id="step5" name="Result Summary">
                       <div className="wizard-basic-step text-left">
                         <Row>
                           <Colxx xxs="12" className="mb-4">
@@ -490,14 +457,10 @@ class ContactThree extends Component{
                               <div className="d-flex flex-column">
                                 <div className="d-flex flex-row justify-content-between pt-2 pb-2">
                                   <div className="d-flex align-self-center">
-                                    <img
-                                      src="/assets/img/dh-logo.svg"
-                                      alt="Logo"
-                                      className="logo-single"
-                                    />
+                                    DEMO
                                   </div>
                                   <div className="d-flex w-30 text-right align-self-center flex-column">
-                                    <h3>DEMO PERSONALIZED PAGE - Comprihensive Guidance Program</h3>
+                                    <h3 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}}>Comprihensive Guidance Program</h3>
                                     <p className="text-small text-semi-muted mb-0">
                                       Minnetonka, Minnesota
                                       <br />
@@ -507,7 +470,7 @@ class ContactThree extends Component{
                                 </div>
                                 <div className="border-bottom pt-4 mb-3" />
                                 <div className="d-flex flex-column p-2 bg-semi-muted mb-3 justify-content-center text-center">
-                                  <h4 className="mb-0">
+                                  <h4 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-0">
                                     Profile ID {this.state.id}
                                   </h4>
                                   <p className="text-semi-muted mb-0">
@@ -516,17 +479,17 @@ class ContactThree extends Component{
                                   </p>
                                 </div>
                                 <div className="d-flex flex-column border mb-2 pt-4">
-                                  <h2 className="mb-3 text-center">Visit Summary</h2>
+                                  <h4 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-3 text-center">Double Check Your Personalized Content. More Personalization will happen as you continue to your profile page</h4>
                                   <div className="d-flex flex-row justify-content-between mb-3">
                                     <div className="d-flex flex-column w-70 mr-2 p-2 bg-semi-muted">
-                                      <h4 className="text-semi-muted">
+                                      <h4 className="text-muted text-extra-small mb-2">
                                         Details:&#32;
                                       </h4>
                                       <p className="mb-0">
                                         {this.state.firstName}{" "}
                                         {this.state.lastName}
                                       </p>
-                                      <h4 className="text-semi-muted">
+                                      <h4 className="text-muted text-extra-small mb-2">
                                         Profile Level:&#32;
                                       </h4>
                                         <p className="mb-0"></p>
@@ -540,7 +503,7 @@ class ContactThree extends Component{
                                   </div>
                                   {this.state.tags1 &&
                                   this.state.tags1.length ? (
-                                    <Table borderless>
+                                    <Table borderless >
                                       <thead>
                                         <tr>
                                           <th className="text-muted text-extra-small mb-2">
@@ -552,21 +515,49 @@ class ContactThree extends Component{
                                           <th className="text-muted text-extra-small mb-2">
                                             Quran Centeral
                                           </th>
-                                          <th className="text-muted text-extra-small mb-2">
-                                            Reminders
-                                          </th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                             <tr>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
+                                                <td>
+                                                  <ReactPlayer
+                                                    url={['https://www.youtube.com/watch?v=2qD0od7wQP4','https://www.youtube.com/watch?v=Tto8-KLY3a0']}
+                                                    width={'220px'}
+                                                    height={'200px'}
+                                                    controls={true}
+                                                    />
+                                                </td>
+                                                <td>
+                                                  <ReactPlayer
+                                                    url={['https://www.youtube.com/watch?v=chcoMWDvRys','https://www.youtube.com/watch?v=s10PTbotgPo']}
+                                                    width={'220px'}
+                                                    height={'200px'}
+                                                    controls={true}
+                                                    />
+                                                </td>
+                                                <td>
+                                                  <ReactPlayer
+                                                    url={['https://www.youtube.com/watch?v=lmYM-ZmPO_E', 'https://www.youtube.com/watch?v=67vt21lQY3M']}
+                                                    width={'220px'}
+                                                    height={'200px'}
+                                                    controls={true}
+                                                    />
+                                                </td>
                                             </tr>
                                       </tbody>
                                     </Table>
                                   ) : null}
+                                </div>
+                                <div className="d-flex flex-column mr-2 p-2 bg-semi-muted">
+                                    <h4 className="text-semi-muted">
+                                        Details About You:&#32;
+                                    </h4>
+                                    <p>
+                                        {this.state.aboutYou.replace(
+                                        /<(.|\n)*?>/g,
+                                        ""
+                                        )}
+                                    </p>
                                 </div>
                               </div>
       
@@ -575,21 +566,7 @@ class ContactThree extends Component{
                                   <tbody>
                                     <tr>
                                       <td className="text-semi-muted">
-                                        Be Truthful to Yourself: Here is how much your engaging
-                                      </td>
-                                      <td className="text-right">
-                                        {/* ${" "}
-                                        {this.state.dispensedDrugs !== null
-                                          ? this.state.dispensedDrugs.reduce(
-                                              function (acc, drug) {
-                                                const minusCopay = drug.unitPrice - copay
-                                                return (
-                                                  parseFloat(acc) + parseFloat(minusCopay)
-                                                );
-                                              },
-                                              0
-                                            )
-                                          : "0"} */}
+                                        Be Truthful to Yourself
                                       </td>
                                     </tr>
                                   </tbody>
