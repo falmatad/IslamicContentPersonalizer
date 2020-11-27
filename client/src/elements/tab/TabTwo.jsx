@@ -24,6 +24,9 @@ class TabsTwo extends Component{
 
                                     <TabPanel>
                                         <div className="single-tab-content">
+                                            <div>
+                                                <span style={{color: 'white'}}> Appreciate the Honor of having </span>
+                                            </div>
                                             <ul>
                                                 <li>
                                                     A religion so strong, it's interconnected and weaved to never fail
@@ -38,7 +41,7 @@ class TabsTwo extends Component{
                                                 </li>
 
                                                 <li>
-                                                    An Ummah that's lost but yet with 2 lights that never die Quran and Sunnah
+                                                    2 lights that never die Quran and Sunnah
                                                     
                                                 </li>
                                             </ul>
@@ -47,9 +50,12 @@ class TabsTwo extends Component{
 
                                     <TabPanel>
                                        <div className="single-tab-content">
+                                            <div>
+                                                <span style={{color: 'white'}}> Caring for one another is not a sign of weakness  </span>
+                                            </div>
                                            <ul>
                                                <li>
-                                                   <p> That Big brother Big Sis Feeling is sunnah of the prophet Sallahu Aleyhi wa sallam <span> "There has certainly come to you a Messenger from among yourselves. Grievous to him is what you suffer; [he is] concerned over you [i.e., your guidance] and to the believers is kind and merciful. (Quran: 9:128)"</span></p> 
+                                                   <p> "There has certainly come to you a Messenger from among yourselves. Grievous to him is what you suffer; [he is] concerned over you [i.e., your guidance] and to the believers is kind and merciful. (Quran: 9:128)" </p> 
                                                </li>
                                                
                                            </ul>
@@ -58,15 +64,18 @@ class TabsTwo extends Component{
 
                                     <TabPanel>
                                        <div className="single-tab-content">
+                                                <div>
+                                                   <span style={{color: 'white'}}> Authentic and Relivent Meetup Ideas </span> 
+                                               </div>
                                            <ul>
                                                <li>
-                                                   <a href="/service">By Gender<span> - Divided into Young Mens Activities and Young Womens Activities</span></a>
+                                                   <a>By Gender<span> - Divided into Activities and Events that cater to both genders</span></a>
                                                </li>
                                                <li>
-                                                   <a href="/service">By Interest<span> - Based on Your Interest</span></a> 
+                                                   <a>By Interest<span> - Based on Your Interest</span></a> 
                                                </li>
                                                <li>
-                                                   <a href="/service">By Schedule<span> - Based on Your Schedule</span></a> 
+                                                   <a>By Schedule<span> - Based on Your Schedule</span></a> 
                                                </li>
                                            </ul>
                                        </div>
