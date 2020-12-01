@@ -5,9 +5,9 @@ const mysql = require('mysql2');
 
 const db = mysql.createPool({
     host: "us-cdbr-east-02.cleardb.com",
-    user: "bd7768d53cf021",
-    password: "96d5b738",
-    database: "heroku_f4572b416ed836a"
+    user: "b39a40423d1646",
+    password: "b842a8cc",
+    database: "heroku_8c92a54ebfd06ea"
 })
 
 const port = process.env.PORT || 5000;
@@ -23,48 +23,72 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// form post this url 'api/insert-form'
-// app.post('api/insert-form', (req, res) => {
 
-//     const professionalXpName = req.body.professionalXpName;
-//     const professionalXpDate = req.body.professionalXpDate;
-//     const professionalXpDetail = req.body.professionalXpDetail;
 
-//     const sqlInsert = "INSERT INTO professional_Xp (professionalXpName, professionalXpDate, professionalXpDetail) VALUES (?, ?, ?);"
-//     db.query(sqlInsert, [professionalXpName, professionalXpDate, professionalXpDetail], (err, result) => {
-//         console.log(result)
-//     })
-// })
+// and all other crud operations if needed 
 
-app.get('/api/get', (req, res) => {
+app.get('/api/get-channel/UC7hxIHncBbcHKUxGM67KZ4g', (req, res) => {
 
-    // const professionalXpName = req.body.data.professionalXpName;
-    // const professionalXpDate = req.body.data.professionalXpDate;
-    // const professionalXpDetail = req.body.data.professionalXpDetail;
+    const sqlGetHeartSoftners = "SELECT * FROM al_amaan_channel";
 
-    const sqlInsert = "SELECT * FROM contact_form";
-
-    db.query(sqlInsert, (err, result) => {
+    db.query(sqlGetHeartSoftners, (err, result) => {
         res.send(result)
     })
 })
 
-// and all other crud operations if needed 
+app.get('/api/get-channel/UC8DILJwxM8wNTz6XDo2ZbNw', (req, res) => {
 
-app.post('/api/insert-form', (req, res) => {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const company = req.body.company;
-    const detailedMessage = req.body.detailedMessage;
-    const contactDate = req.body.contactDate;
+    const sqlGetKnowledge = "SELECT * FROM islamic_university_english_channel";
 
-    const sqlInsert = "INSERT INTO contact_form (firstName, lastName, email, company, detailedMessage, contactDate) VALUES (?,?,?,?,?,?)"
-    db.query(sqlInsert, [firstName, lastName, email, company, detailedMessage, contactDate], (err, results) => {
+    db.query(sqlGetKnowledge, (err, result) => {
+        res.send(result)
+    })
+})
+
+app.get('/api/get-channel/UCPZvLwo3dIUoRMGSRPGWY3A', (req, res) => {
+
+    const sqlGetQuran = "SELECT * FROM quran_visualization_channel";
+
+    db.query(sqlGetQuran, (err, result) => {
+        res.send(result)
+    })
+})
+
+app.get('/api/get-channel/UCpOuNtadjyviGvy7p4Va5tA', (req, res) => {
+
+    const sqlGetShykJamel = "SELECT * FROM shyk_jamel_channel";
+
+    db.query(sqlGetShykJamel, (err, result) => {
+        res.send(result)
+    })
+})
+
+
+app.post('/api/bulk-post', (req, res) => {
+    const data = [...req.body];
+
+    const sqlInsert = "INSERT INTO shyk_jamel_channel (video_id, video_title, video_description, posted_at) VALUES ?";
+    db.query(sqlInsert, [data], (err, results) => {
         if(err){
             console.log(err);
+
           } else {
             return res.status(200).json({"status": 200,"err": null,"response": results});
           }
     })
 })
+
+// app.post('/api/post-user-and-content', (req, res) => {
+//     const data = [...req.body];
+
+//     const sqlInsert = "INSERT INTO quran_visualization_channel (video_id, video_title, video_description, posted_at) VALUES ?";
+//     db.query(sqlInsert, [data], (err, results) => {
+//         if(err){
+//             console.log(err);
+
+//           } else {
+//             return res.status(200).json({"status": 200,"err": null,"response": results});
+//           }
+//     })
+// })
+
