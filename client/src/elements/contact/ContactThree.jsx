@@ -21,8 +21,10 @@ import {
   import CustomSelectInput from "../../component/common/CustomSelectInput";
   import { TopNavigation } from "../../component/wizard/TopNavigation";
   import { BottomNavigation } from "../../component/wizard/BottomNavigation";
-  import ReactPlayer from 'react-player';
+  import ReactPlayer from 'react-player/lazy';
   import moment from "moment";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { FaGlassMartiniAlt } from "react-icons/fa";
@@ -68,59 +70,44 @@ const selectGender = genders.map(genderType => {
     return { label: genderType.value, value: genderType.value.toLocaleLowerCase()};
 });
 
-const hiddenStruggle = [
-    {
-        value: 'Sister'
-    },
-    {
-        value: 'Brother'
-    }
-
-]
-const selectHiddenStruggle = hiddenStruggle.map(genderType => {
-    return { label: genderType.value, value: genderType.value.toLocaleLowerCase()};
-});
-
-const visibleStruggle = [
-    {
-        value: 'Sister'
-    },
-    {
-        value: 'Brother'
-    }
-
-]
-const selectVisibleStruggle = visibleStruggle.map(option => {
-    return { label: option.value, value: option.value.toLocaleLowerCase()};
-});
-
-
-const deepDownLack = [
-    {
-        value: 'Sister'
-    },
-    {
-        value: 'Brother'
-    }
-
-]
-const selectDeepDownLack = deepDownLack.map(option => {
-    return { label: option.value, value: option.value.toLocaleLowerCase()};
-});
-
-
 const neededKnowledge = [
     {
-        value: 'Sister'
+        label: 'The knowledge of what Imaan is and Who Allah is',
+        value: 'Tawheed'
     },
     {
-        value: 'Brother'
+        label: 'The knowledge of How to prepare The heart for Imaan',
+        value: 'Tazkiya'
+    },
+    {
+        label: 'The knowledge of how to worship Allah',
+        value: 'Zaad Zad'
+    },
+    {
+        label: "The knowledge of how Islam takes society out of darkness",
+        value: 'Maqasid'
+    },
+    {
+        label: 'The knowledge of how to understand the Quran',
+        value: 'Tafseer'
+    },
+    {
+        label: 'The knowledge of Islamic History',
+        value: 'Seerah Serah'
+    },
+    {
+        label: 'The knowledge of how to Convey Islam to Muslims and Non Muslims',
+        value: 'Dawa Dawah Daawa'
+    },
+    {
+        label: 'The Wnowledge of Why the Scholars Disagreed',
+        value: 'Al-Khilaf Disagreements'
     }
-
 ]
-const selectneededKnowledge = neededKnowledge.map(option => {
-    return { label: option.value, value: option.value.toLocaleLowerCase()};
+const selectneededKnowledge = neededKnowledge.map(subject => {
+    return { label: subject.label, value: subject.value.toLocaleLowerCase()};
 });
+
 class ContactThree extends Component{
     constructor(props){
         super(props);
@@ -131,22 +118,20 @@ class ContactThree extends Component{
             email: '',
             password: '',
             age: '',
-            gender: [],
+            gender: '',
             aboutYou: '',
             tags1: [],
             tags2: [],
             tags3: [],
-            tags4: [],
-            createDate: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"),
-            success: "",
-            alert: "",
-            nextLabel: ""
+            nextLabel: "",
+            userType: 'No Account'
         };
         this.handelSubmit = this.handelSubmit.bind(this);
-        // this.filterit = this.filterit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
         this.onClickPrev = this.onClickPrev.bind(this);
         this.topNavClick = this.topNavClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.onInputChange = this.onInputChange.bind(this)
     }
 
     topNavClick(stepItem, push) {
@@ -155,24 +140,25 @@ class ContactThree extends Component{
     
       onClickNext(goToNext, steps, step) {
         step.isDone = true;
-        if (steps.indexOf(step) <= 1) {
+        if (steps.indexOf(step) <= 0) {
             this.setState({ nextLabel: "Next" });
-          } else if (steps.indexOf(step) <= 2) {
+          } else if (steps.indexOf(step) <= 1) {
           this.setState({ nextLabel: "Next" });
-        } else if (steps.indexOf(step) === 3) {
+        } else if (steps.indexOf(step) === 2) {
+            this.handelSubmit()
           this.setState({ nextLabel: "Submit Profile" });
           if (this.state.id) {
             this.setState({ nextLabel: "Update Profile" });
           }
-        } else if (steps.indexOf(step) === 4) {
+        } else if (steps.indexOf(step) === 3) {
             this.setState({
-                id: `PH${new Array(9)
+                id: `AL${new Array(9)
                   .fill()
                   .map((a, i) => (a = i))
                   .sort(() => Math.random() - 0.5)
                   .join("")}`,
               });
-          this.handelSubmit()
+          
           this.setState({ nextLabel: "Done" });
 
         }
@@ -196,70 +182,61 @@ class ContactThree extends Component{
       }
     
       handleChange(selected, value) {
-        this.setState({ [selected]: value });
+        this.setState({ [selected]: value});
+      }
+      
+      onInputChange(e) {
+          const value = e.target.value
+
+        this.setState({[e.target.name]: value})
       }
 
      handelSubmit(e) {
             const commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www'];
-            const {aboutYou} = this.state
-    
+            const {firstName, lastName, email, gender, tags1, tags2, tags3, userType, aboutYou} = this.state
+           
             // Convert to lowercase
-            aboutYou = aboutYou.toLowerCase();
+            let aboutYouLowerCase = aboutYou.toLowerCase();
     
             // replace unnesessary chars. leave only chars, numbers and space
-            aboutYou = aboutYou.replace(/[^\w\d ]/g, '');
+            aboutYouLowerCase = aboutYouLowerCase.replace(/[^\w\d ]/g, '');
     
-            const result = aboutYou.split(' ');
+            const result = aboutYouLowerCase.split(' ');
     
             // remove $commonWords
             const aboutYouResult = result.filter(function (word) {
                 return commonWords.indexOf(word) === -1;
             });
-    
+            
             // Unique words
             // const aboutYouResult = result.unique();
+
+            let user = { firstName, lastName, email, gender}
+
+            let mappedTags3 = tags3.map(tag => {
+                return tag.value
+            })
+
+            console.log(mappedTags3)
+            let allTags = {heartSoftner: [...tags1, ...tags2, ...aboutYouResult], knowledge: [...mappedTags3]}
+
+            const channels = [{type: 'al-amaan', id: 'UC7hxIHncBbcHKUxGM67KZ4g'}, {type: 'shyk-jamel', id: 'UCpOuNtadjyviGvy7p4Va5tA'}, {type: 'quran', id: 'UCPZvLwo3dIUoRMGSRPGWY3A'}, {type: 'knowledge', id: 'UC8DILJwxM8wNTz6XDo2ZbNw'}]
+            console.log(allTags.heartSoftner)
             
-            // falmata.dawano@gmail.com
-
-        
-        const {firstName, lastName, email, gender, tags, createDate} = this.state
-        console.log(firstName, lastName, email, gender, tags, createDate)
-        axios.post('dasdasd',
-        {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            gender: gender,
-            tags: tags,
-            aboutYouResult: aboutYouResult,
-            createDate: createDate
-        }).then((response) => {
-            if (response) {
-                this.setState({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    company: '',
-                    detailedMessage: '',
-                    contactDate: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss")
-                })
-                this.setState({success: 'green', alert: "Barak Allahu Feek, your info was sent to the database :)"})
+            if (userType == 'No Account') {
+                this.props.generateContentOnly(channels, allTags)
+            } else {
+                this.props.generateAccountAndContent(channels, user, allTags)
             }
-        }).catch((error) => {
-                    if (error) {
-                        this.setState({
-                            success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
-                        })
-                    }
-        });
-        
-        e.preventDefault()
-
 
     }
     
+    componentDidUpdate() {
+        console.log(this.props.alAmaanVideos)
+    }
     
     render(){
+
         return (
             <Card className="card">
               <CardBody className="wizard wizard-default">
@@ -270,7 +247,7 @@ class ContactThree extends Component{
                     topNavClick={this.topNavClick}
                   />
                   <Steps>
-                    <Step id="step1" name="Create Account">
+                    <Step id="step1" name="Basic Info">
                       <div className="wizard-basic-step">
                         <Form
                           className="av-tooltip tooltip-label-bottom"
@@ -283,11 +260,9 @@ class ContactThree extends Component{
                                     className="form-control form-control-sm"
                                     name="firstName"
                                     type="text"
-                                    placeholder="Description"
+                                    placeholder="First Name"
                                     value={this.state.firstName}
-                                    onChange={(value) => {
-                                        this.handleChange("firstName", value);
-                                      }}
+                                    onChange={this.onInputChange}
                                 />
                               <Label>Last Name</Label>
                                 <Input
@@ -296,14 +271,8 @@ class ContactThree extends Component{
                                     type="text"
                                     placeholder="Last Name"
                                     value={this.state.lastName}
-                                    onChange={(value) => {
-                                        this.handleChange("lastName", value);
-                                      }}
+                                    onChange={this.onInputChange}
                                 />
-                              
-                            </FormGroup>
-                        
-                            <FormGroup className="col-6 input-group-sm">
                                 <Label>Email</Label>
                                 <Input
                                     className="form-control form-control-sm"
@@ -311,35 +280,11 @@ class ContactThree extends Component{
                                     type="text"
                                     placeholder="Email"
                                     value={this.state.email}
-                                    onChange={(value) => {
-                                        this.handleChange("email", value);
-                                        }}
+                                    onChange={this.onInputChange}
                                 />
                             </FormGroup>
-                        </div>
-                        </Form>
-                      </div>
-                    </Step>
-                    <Step id="step2" name="Basic Info">
-                      <div className="wizard-basic-step">
-                        <Form
-                          className="av-tooltip tooltip-label-bottom"
-                          autoComplete="off"
-                        >
-                          <Fragment>
-                            <div className="row">
-                              <FormGroup className="col-12">
-                              <Label>How old are you?</Label>
-                                <Input
-                                    className="form-control form-control-sm"
-                                    name="age"
-                                    type="text"
-                                    placeholder="We want to match appropriate contents :)"
-                                    value={this.state.age || ""}
-                                    onChange={(value) => {
-                                        this.handleChange("age", value);
-                                      }}
-                                />
+                        
+                            <FormGroup className="col-6 input-group-sm">
                                 <Label>Brother or a Sister?</Label>
                                 <Select
                                   components={{ Input: CustomSelectInput }}
@@ -347,86 +292,59 @@ class ContactThree extends Component{
                                   classNamePrefix="react-select"
                                   placeholder="Select Options"
                                   value={this.state.gender}
-                                  isMulti
                                   name="gender"
                                   onChange={(value) => {
                                     this.handleChange("gender", value);
                                   }}
                                   options={selectGender}
+                                  style={{height:'5px'}}
                                 />
-                              </FormGroup>
-                            </div>
-                          </Fragment>
+                            </FormGroup>
+                        </div>
                         </Form>
                       </div>
                     </Step>
-                    <Step id="step3" name="Personalize">
+                    <Step id="step2" name="Personalize">
                         <div className="wizard-basic-step">
                         <Form
                           className="av-tooltip tooltip-label-bottom"
                           autoComplete="off"
                         >
-                            <div className="row">
-                            <FormGroup className="col-12">
-                                <Label>The hidden aspect of my worship I struggle with:</Label>
-                                <Select
-                                  components={{ Input: CustomSelectInput }}
-                                  className="react-select"
-                                  classNamePrefix="react-select"
-                                  placeholder="Select Options"
-                                  value={this.state.tags1}
-                                  isMulti
-                                  name="tags1"
-                                  onChange={(value) => {
-                                    this.handleChange("tags1", value);
-                                  }}
-                                  options={selectHiddenStruggle}
-                                />
-                                <Label>Bad habits that I struggle with:</Label>
-                                <Select
-                                  components={{ Input: CustomSelectInput }}
-                                  className="react-select"
-                                  classNamePrefix="react-select"
-                                  placeholder="Select Options"
-                                  value={this.state.tags2}
-                                  isMulti
-                                  name="tags2"
-                                  onChange={(value) => {
-                                    this.handleChange("tags2", value);
-                                  }}
-                                  options={selectVisibleStruggle}
+                            <div className="col-12 row">
+                            <FormGroup className="col-6">
+                                <Label>Aspect of my Religion I struggle with:</Label>
+                                <TagsInput
+                                    value={this.state.tags1}
+                                    name="tags1"
+                                    onChange={(value) => {
+                                        this.handleChange("tags1", value);
+                                      }}
+                                    inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}                                
+                                    />
+                                <Label>The state of my heart and soul right now:</Label>
+                                <TagsInput
+                                    value={this.state.tags2}
+                                    name="tags2"
+                                    onChange={(value) => {
+                                        this.handleChange("tags2", value);
+                                      }}
+                                    inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}
                                 />
                             </FormGroup>
-                            </div>
-
-                            <div className='row'>
-                            <FormGroup className="col-12">
-                                <Label>Deep down, I lack:</Label>
+                            
+                            <FormGroup className="col-6">
+                                <Label>I should really learn about: (Start with 1 or 2 subjects..you can always update your profile)</Label>
                                 <Select
                                   components={{ Input: CustomSelectInput }}
                                   className="react-select"
                                   classNamePrefix="react-select"
                                   placeholder="Select Options"
                                   value={this.state.tags3}
-                                  isMulti
                                   name="tags3"
                                   onChange={(value) => {
                                     this.handleChange("tags3", value);
                                   }}
-                                  options={selectDeepDownLack}
-                                />
-                                <Label>What I have to know about Islam ASAP</Label>
-                                <Select
-                                  components={{ Input: CustomSelectInput }}
-                                  className="react-select"
-                                  classNamePrefix="react-select"
-                                  placeholder="Select Options"
-                                  value={this.state.tags4}
                                   isMulti
-                                  name="tags4"
-                                  onChange={(value) => {
-                                    this.handleChange("tags4", value);
-                                  }}
                                   options={selectneededKnowledge}
                                 />
                               </FormGroup>
@@ -434,7 +352,7 @@ class ContactThree extends Component{
                             </Form>
                       </div>
                     </Step>
-                    <Step id="step4" name="Describe Youself">
+                    <Step id="step3" name="Describe Youself">
                     <div className="wizard-basic-step">
                     <FormGroup className="col-12">
                           <ReactQuill
@@ -449,7 +367,7 @@ class ContactThree extends Component{
                         </FormGroup>
                       </div>
                     </Step>
-                    <Step id="step5" name="Result Summary">
+                    <Step id="step4" name="Result Summary">
                       <div className="wizard-basic-step text-left">
                         <Row>
                           <Colxx xxs="12" className="mb-4">
@@ -490,9 +408,9 @@ class ContactThree extends Component{
                                         {this.state.lastName}
                                       </p>
                                       <h4 className="text-muted text-extra-small mb-2">
-                                        Profile Level:&#32;
+                                        Profile Type:&#32;
                                       </h4>
-                                        <p className="mb-0"></p>
+                                        <p className="mb-0">{this.state.userType}</p>
                                     </div>
                                     <div className="d-flex flex-column w-70 mr-2 p-2 bg-semi-muted">
                                       <h4 className="text-semi-muted">
@@ -510,38 +428,53 @@ class ContactThree extends Component{
                                             Heart Softners
                                           </th>
                                           <th className="text-muted text-extra-small mb-2">
-                                            Knowledge Collage 
+                                            Long Term Knowledge 
                                           </th>
                                           <th className="text-muted text-extra-small mb-2">
-                                            Quran Centeral
+                                            Ayat of Al-Quran
                                           </th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                             <tr>
                                                 <td>
+                                                { this.props.alAmaanVideos.length && this.props.shykJamelVideos.length?
+                                                    
                                                   <ReactPlayer
-                                                    url={['https://www.youtube.com/watch?v=2qD0od7wQP4','https://www.youtube.com/watch?v=Tto8-KLY3a0']}
+                                                    url={[...this.props.alAmaanVideos.map(alvideo => {
+                                                        return alvideo.url
+                                                    }), ...this.props.shykJamelVideos.map(shykvideo => {
+                                                        return shykvideo.url
+                                                    })]}
+                                                    
                                                     width={'220px'}
                                                     height={'200px'}
                                                     controls={true}
-                                                    />
+                                                    /> : null
+                                                }
                                                 </td>
                                                 <td>
+                                                    {this.props.islamicUniversityVideos.length ?
                                                   <ReactPlayer
-                                                    url={['https://www.youtube.com/watch?v=chcoMWDvRys','https://www.youtube.com/watch?v=s10PTbotgPo']}
+                                                    url={this.props.islamicUniversityVideos?.map(univideo => {
+                                                        return univideo.url
+                                                    })}
                                                     width={'220px'}
                                                     height={'200px'}
                                                     controls={true}
-                                                    />
+                                                    /> : null
+                                                }
                                                 </td>
                                                 <td>
-                                                  <ReactPlayer
-                                                    url={['https://www.youtube.com/watch?v=lmYM-ZmPO_E', 'https://www.youtube.com/watch?v=67vt21lQY3M']}
+                                                 { this.props.quranVideos.length ? <ReactPlayer
+                                                    url={this.props.quranVideos.map(quranVideo => {
+                                                        return quranVideo.url
+                                                    })}
                                                     width={'220px'}
                                                     height={'200px'}
                                                     controls={true}
                                                     />
+                                                    : null}
                                                 </td>
                                             </tr>
                                       </tbody>

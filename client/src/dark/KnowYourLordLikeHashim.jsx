@@ -59,9 +59,11 @@ class KnowYourLordLikeHashim extends Component {
         this.state = {
             tab1: 0,
             isOpen: false,
-            channelApi: '',
-            videos: [],
-            tags: ['love', 'hope', 'fear', 'allah', 'imaan', 'imaan', 'prophet']
+            quranVideos: [],
+            alAmaanVideos: [],
+            shykJamelVideos: [],
+            islamicUniversityVideos: [],
+            loading: true
         };
         this.generateAccountAndContent = this.generateAccountAndContent.bind(this);
         this.getContent = this.getContent.bind(this);
@@ -77,62 +79,162 @@ class KnowYourLordLikeHashim extends Component {
                 setTimeout(waitForInstagram, 250);
             }
         }
+
         waitForInstagram()
     }
 
-    getContent(channel, data=[]) { 
+    getContent(channel, tags) { 
     
-        return axios.get(`${channel}`
+        return axios.get(`http://localhost:5000/api/get-channel/${channel.id}`
         ).then((response) => {
+            console.log(response)
             
             const tempDataArray = []
-            for (var i = 0; i < response.data.length; i++) {
-                tempDataArray.push({url: `${data[i].videoId}`, title: response.data[i].title, postedDate: response.data.items[i].snippet.publishedAt})
+            if (channel.type == 'quran') {
+                for (var i = 0; i < response.data.length; i++) {
+                    tempDataArray.push({url: `${response.data[i].video_id}`, title: response.data[i].topic !== null ? response.data[i].topic : response.data[i].video_title, postedDate: response.data[i].posted_at})
+                }
+            } else {
+                for (var i = 0; i < response.data.length; i++) {
+                    tempDataArray.push({url: `${response.data[i].video_id}`, title: response.data[i].video_title, postedDate: response.data[i].posted_at})
+                }
             }
+            
 
             const personalized = tempDataArray.filter((video) => {
                 var valid = false;
-                const {tags} = this.state
-
                 for (var i = 0; i < tags.length; i++) {
-                    if (video.videoTitle.split(' ').some(operative => operative.replace(/\W/g, '').toLowerCase() == tags[i])) {
+                    if (video.title.split(' ').some(operative => operative.replace(/\W/g, '').toLowerCase() == tags[i])) {
                         valid = true
                     }
                 }
-
                 return valid
             })
-            
-            data.push(...personalized)
+        return personalized
             
         }).catch((error) => {
             if (error) {
-                // this.setState({
-                //     success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
-                // })
-                console.log(error)
+                return error
             }
         });
     }
 
-    generateAccountAndContent(channel) {
-        this.getContent(channel).then(data => {
-            console.log("final data", data)
-            axios.post('http://localhost:5000/api/bulk-post', [...data]).then(response => {
+    generateAccountAndContent(channels, tags, user) {
+        const readyData = []
+
+            for (let i=0; i < channels.length; i++) {
+                if (channels[i].type == 'knowledge') {
+                    this.getContent(channels[i], tags.knowledge).then(data => {
+                        readyData.push({knowledge: data})
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                } else if (channels[i].type == 'quran'){
+                    this.getContent(channels[i], tags.heartSoftner).then(data => {
+                        readyData.push({quran: data})
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                } else {
+                    this.getContent(channels[i], tags.heartSoftner).then(data => {
+                        readyData.push({heartSoftner: data})
+                    }).catch((error) => { 
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                }
+        }
+
+        readyData.push({user: user})
+
+        console.log(readyData)
+            axios.post('http://localhost:5000/api/post-user-and-content', [readyData]).then(response => {
                 console.log(response)
             })
-        })
+
+        return readyData
     }
 
-    generateContentOnly(channel) {
-        this.getContent(channel).then(data => {
-            console.log("final data", data)
-        })
+    generateContentOnly(channels, tags) {
+        
+            for (let i=0; i < channels.length; i++) {
+
+                if (channels[i].type == 'knowledge') {
+                    console.log()
+                    this.getContent(channels[i], tags.knowledge).then(data => {
+                        console.log(data)
+                        this.setState({
+                            islamicUniversityVideos: [...data]
+                        })
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                } else if (channels[i].type == 'quran'){
+                    this.getContent(channels[i], tags.heartSoftner).then(data => {
+                        this.setState({
+                            quranVideos: [...data]
+                        })
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                } else if (channels[i].type == 'al-amaan') {
+                    this.getContent(channels[i], tags.heartSoftner).then(data => {
+                        this.setState({
+                            alAmaanVideos: [...data]
+                        })
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                } else if (channels[i].type == 'shyk-jamel') {
+                    this.getContent(channels[i], tags.heartSoftner).then(data => {
+                        this.setState({
+                            shykJamelVideos: [...data],
+                            loading: false
+                        })
+                        
+                    }).catch((error) => {
+                        if (error) {
+                            this.setState({
+                                success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again or reach out on social media @litatthemasjid"
+                            })
+                            console.log(error)
+                        }
+                    });
+                }
+        }
+        
     }
 
     render () {
-        
-        const {videos} = this.state;
 
         let title = "We are the Product of our Environment",
         description = " But we can detox. Start by knowing who Allah is, have an environment that we can put that knowledge into practice, and a company of knowledgable people that are rooted in mercy to talk to when we need them.";
@@ -273,7 +375,7 @@ class KnowYourLordLikeHashim extends Component {
             
             <div id="contact" className="fix active-dark">
                 <div className="rn-contact-area ptb--120 bg_color--1">
-                    <ContactThree contactImages="/assets/images/about/about-9.jpg" contactTitle="Customized Guidance Program: no matter where you at in life" />
+                    <ContactThree generateContentOnly={this.generateContentOnly} generateAccountAndContent={this.generateAccountAndContent} alAmaanVideos={this.state.alAmaanVideos} islamicUniversityVideos={this.state.islamicUniversityVideos} quranVideos={this.state.quranVideos} shykJamelVideos={this.state.shykJamelVideos} loading={this.state.loading}contactImages="/assets/images/about/about-9.jpg" contactTitle="Customized Guidance Program: no matter where you at in life" />
                 </div>
             </div>
 

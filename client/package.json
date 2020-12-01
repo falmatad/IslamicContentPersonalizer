@@ -75,6 +75,7 @@
     "react-select": "^3.1.1",
     "react-slick": "^0.24.0",
     "react-tabs": "^3.1.0",
+    "react-tagsinput": "^3.19.0",
     "react-text-loop": "^2.3.0",
     "react-tilt": "^0.1.4",
     "react-video-tag": "0.0.10",
