@@ -103,13 +103,22 @@ class KnowYourLordLikeHashim extends Component {
 
             const personalized = tempDataArray.filter((video) => {
                 var valid = false;
+                if (tags.knowledge) {
+                    for (var i = 0; i < tags.knowledge.length; i++) {
+                        if (video.title.split(' ').some(operative => operative.replace(/\W/g, '').toLowerCase() == tags.knowledge[i])) {
+                            valid = true
+                        }
+                    }
+                } else {
                 for (var i = 0; i < tags.length; i++) {
                     if (video.title.split(' ').some(operative => operative.replace(/\W/g, '').toLowerCase() == tags[i])) {
                         valid = true
                     }
                 }
+            }
                 return valid
             })
+            
         return personalized
             
         }).catch((error) => {
@@ -123,7 +132,8 @@ class KnowYourLordLikeHashim extends Component {
         const readyData = []
 
             for (let i=0; i < channels.length; i++) {
-                if (channels[i].type == 'knowledge') {
+                if (channels[i].type == 'knowledge' && tags.knowledge.length) {
+                    console.log(tags.knowledge)
                     this.getContent(channels[i], tags.knowledge).then(data => {
                         readyData.push({knowledge: data})
                     }).catch((error) => {
@@ -174,9 +184,9 @@ class KnowYourLordLikeHashim extends Component {
             for (let i=0; i < channels.length; i++) {
 
                 if (channels[i].type == 'knowledge') {
-                    console.log()
+                    
                     this.getContent(channels[i], tags.knowledge).then(data => {
-                        console.log(data)
+                        console.log(tags.knowledge)
                         this.setState({
                             islamicUniversityVideos: [...data]
                         })
