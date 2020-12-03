@@ -185,9 +185,10 @@ class ContactThree extends Component{
 
         this.setState({[e.target.name]: value})
       }
-     handleFeedBack(e) {
+     handleFeedBack() {
         const {feedBack} = this.state
-        axios.post('https://like-hashim-backend.herokuapp.com/api/feed-back-form',
+        if(feedBack !== '') {
+            axios.post('https://like-hashim-backend.herokuapp.com/api/feed-back-form',
         {
             feedBack: feedBack
         }).then((response) => {
@@ -204,6 +205,7 @@ class ContactThree extends Component{
                         })
                     }
         });
+        }
        
      }
      handelSubmit(e) {

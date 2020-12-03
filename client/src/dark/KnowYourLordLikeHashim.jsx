@@ -85,7 +85,7 @@ class KnowYourLordLikeHashim extends Component {
 
     getContent(channel, tags) { 
     
-        return axios.get(`http://localhost:5000/api/get-channel/${channel.id}`
+        return axios.get(`https://like-hashim-backend.herokuapp.com/api/get-channel/${channel.id}`
         ).then((response) => {
             console.log(response)
             
@@ -172,7 +172,7 @@ class KnowYourLordLikeHashim extends Component {
         readyData.push({user: user})
 
         console.log(readyData)
-            axios.post('http://localhost:5000/api/post-user-and-content', [readyData]).then(response => {
+            axios.post('https://like-hashim-backend.herokuapp.com/api/post-user-and-content', [readyData]).then(response => {
                 console.log(response)
             })
 
