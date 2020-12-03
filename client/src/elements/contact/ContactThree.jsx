@@ -336,6 +336,7 @@ class ContactThree extends Component{
                             <div className="col-12 row">
                             <FormGroup className="col-6">
                                 <Label>Aspect of my Religion I struggle with:</Label>
+                                <form>
                                 <TagsInput
                                     value={this.state.tags1}
                                     name="tags1"
@@ -344,7 +345,9 @@ class ContactThree extends Component{
                                       }}
                                     inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}                                
                                     />
+                                </form>
                                 <Label>The state of my heart and soul right now:</Label>
+                                <form>
                                 <TagsInput
                                     value={this.state.tags2}
                                     name="tags2"
@@ -353,6 +356,7 @@ class ContactThree extends Component{
                                       }}
                                     inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}
                                 />
+                                </form>
                             </FormGroup>
                             
                             <FormGroup className="col-6">
