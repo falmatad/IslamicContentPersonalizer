@@ -93,7 +93,7 @@ const neededKnowledge = [
     },
     {
         label: 'The knowledge of Islamic History',
-        value: 'Seerah Serah'
+        value: 'Seerah'
     },
     {
         label: 'The knowledge of how to Convey Islam to Muslims and Non Muslims',
@@ -117,14 +117,16 @@ class ContactThree extends Component{
             lastName: '',
             email: '',
             password: '',
-            age: '',
             gender: '',
             aboutYou: '',
             tags1: [],
             tags2: [],
             tags3: [],
             nextLabel: "",
-            userType: 'No Account'
+            userType: 'No Account',
+            feedBack: '',
+            success: '',
+            alert: ''
         };
         this.handelSubmit = this.handelSubmit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
@@ -132,6 +134,7 @@ class ContactThree extends Component{
         this.topNavClick = this.topNavClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onInputChange = this.onInputChange.bind(this)
+        this.handleFeedBack = this.handleFeedBack.bind(this)
     }
 
     topNavClick(stepItem, push) {
@@ -142,25 +145,17 @@ class ContactThree extends Component{
         step.isDone = true;
         if (steps.indexOf(step) <= 0) {
             this.setState({ nextLabel: "Next" });
-          } else if (steps.indexOf(step) <= 1) {
+        } else if (steps.indexOf(step) <= 1) {
           this.setState({ nextLabel: "Next" });
         } else if (steps.indexOf(step) === 2) {
             this.handelSubmit()
-          this.setState({ nextLabel: "Submit Profile" });
+          this.setState({ nextLabel: "Send Us FeedBack!" });
           if (this.state.id) {
             this.setState({ nextLabel: "Update Profile" });
           }
-        } else if (steps.indexOf(step) === 3) {
-            this.setState({
-                id: `AL${new Array(9)
-                  .fill()
-                  .map((a, i) => (a = i))
-                  .sort(() => Math.random() - 0.5)
-                  .join("")}`,
-              });
-          
-          this.setState({ nextLabel: "Done" });
-
+        } else if (steps.indexOf(step) === 4) {
+          this.handleFeedBack()
+          this.setState({ nextLabel: "Done!" });
         }
     
         // if (steps.length - 1 <= steps.indexOf(step)) {
@@ -190,11 +185,36 @@ class ContactThree extends Component{
 
         this.setState({[e.target.name]: value})
       }
-
+     handleFeedBack() {
+        const {feedBack} = this.state
+        if(feedBack !== '') {
+            axios.post('https://like-hashim-backend.herokuapp.com/api/feed-back-form',
+        {
+            feedBack: feedBack
+        }).then((response) => {
+            if (response) {
+                this.setState({
+                    feedBack: ''
+                })
+                this.setState({success: 'green', alert: "Thanks, your info was sent to me :)"})
+            }
+        }).catch((error) => {
+                    if (error) {
+                        this.setState({
+                            success: 'red', alert: "Woops :[ The form wasn't sent, please refresh and try again"
+                        })
+                    }
+        });
+        }
+       
+     }
      handelSubmit(e) {
+         
             const commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www'];
             const {firstName, lastName, email, gender, tags1, tags2, tags3, userType, aboutYou} = this.state
            
+            if (firstName && lastName && email && tags1 && tags2 && tags3 && aboutYou) {
+
             // Convert to lowercase
             let aboutYouLowerCase = aboutYou.toLowerCase();
     
@@ -214,25 +234,28 @@ class ContactThree extends Component{
             let user = { firstName, lastName, email, gender}
 
             let mappedTags3 = tags3.map(tag => {
-                return tag.value
-            })
+                let tempArray = tag.value.split(' ')
+                return tempArray
+            }).flat(2)
 
-            console.log(mappedTags3)
             let allTags = {heartSoftner: [...tags1, ...tags2, ...aboutYouResult], knowledge: [...mappedTags3]}
 
             const channels = [{type: 'al-amaan', id: 'UC7hxIHncBbcHKUxGM67KZ4g'}, {type: 'shyk-jamel', id: 'UCpOuNtadjyviGvy7p4Va5tA'}, {type: 'quran', id: 'UCPZvLwo3dIUoRMGSRPGWY3A'}, {type: 'knowledge', id: 'UC8DILJwxM8wNTz6XDo2ZbNw'}]
-            console.log(allTags.heartSoftner)
             
+            console.log(allTags.knowledge)
+            
+        
             if (userType == 'No Account') {
                 this.props.generateContentOnly(channels, allTags)
             } else {
                 this.props.generateAccountAndContent(channels, user, allTags)
             }
 
-    }
-    
-    componentDidUpdate() {
-        console.log(this.props.alAmaanVideos)
+        } else {
+            
+            return
+        }
+
     }
     
     render(){
@@ -277,7 +300,7 @@ class ContactThree extends Component{
                                 <Input
                                     className="form-control form-control-sm"
                                     name="email"
-                                    type="text"
+                                    type='email'
                                     placeholder="Email"
                                     value={this.state.email}
                                     onChange={this.onInputChange}
@@ -355,6 +378,7 @@ class ContactThree extends Component{
                     <Step id="step3" name="Describe Youself">
                     <div className="wizard-basic-step">
                     <FormGroup className="col-12">
+                        <Label>If you are the type to describe your situation in a written format, poar your heart out Here (we do not save any of your response, only your personalized page in the coming releases of this service for you to return to your profile next time.)</Label>
                           <ReactQuill
                             theme="snow"
                             value={this.state.aboutYou}
@@ -375,7 +399,7 @@ class ContactThree extends Component{
                               <div className="d-flex flex-column">
                                 <div className="d-flex flex-row justify-content-between pt-2 pb-2">
                                   <div className="d-flex align-self-center">
-                                    DEMO
+                                    <h3 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}}>PUBLIC DEMO TEST</h3>
                                   </div>
                                   <div className="d-flex w-30 text-right align-self-center flex-column">
                                     <h3 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}}>Comprihensive Guidance Program</h3>
@@ -388,16 +412,13 @@ class ContactThree extends Component{
                                 </div>
                                 <div className="border-bottom pt-4 mb-3" />
                                 <div className="d-flex flex-column p-2 bg-semi-muted mb-3 justify-content-center text-center">
-                                  <h4 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-0">
-                                    Profile ID {this.state.id}
-                                  </h4>
                                   <p className="text-semi-muted mb-0">
-                                    Created:{" "}
+                                    DEMO Profile Created:{" "}
                                     {moment().format("MM/DD/YYYY - LT").toString()}
                                   </p>
                                 </div>
                                 <div className="d-flex flex-column border mb-2 pt-4">
-                                  <h4 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-3 text-center">Double Check Your Personalized Content. More Personalization will happen as you continue to your profile page</h4>
+                                  <h4 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-3 text-center">Double Check Your Personalized Content. Currently this is in Beta stage. Final version will be out soon</h4>
                                   <div className="d-flex flex-row justify-content-between mb-3">
                                     <div className="d-flex flex-column w-70 mr-2 p-2 bg-semi-muted">
                                       <h4 className="text-muted text-extra-small mb-2">
@@ -419,8 +440,7 @@ class ContactThree extends Component{
                                           <p className="mb-0"></p>
                                     </div>
                                   </div>
-                                  {this.state.tags1 &&
-                                  this.state.tags1.length ? (
+                                  
                                     <Table borderless >
                                       <thead>
                                         <tr>
@@ -436,8 +456,13 @@ class ContactThree extends Component{
                                         </tr>
                                       </thead>
                                       <tbody>
+                                      {this.state.tags1.length &&
+                                        this.state.tags2.length && this.state.tags3 ? (
                                             <tr>
-                                                <td>
+                                                <td style={{height: '0',
+                                                        overflow: 'hidden',
+                                                        paddingTop: '</tr>591.44px / 1127.34px * 100%',
+                                                        position: 'relative'}}>
                                                 { this.props.alAmaanVideos.length && this.props.shykJamelVideos.length?
                                                     
                                                   <ReactPlayer
@@ -447,50 +472,48 @@ class ContactThree extends Component{
                                                         return shykvideo.url
                                                     })]}
                                                     
-                                                    width={'220px'}
-                                                    height={'200px'}
+                                                    width='100%'
+                                                    height='100%'
                                                     controls={true}
-                                                    /> : null
+                                                    /> : <p>Please go back and create more Personalized Tags</p>
                                                 }
                                                 </td>
-                                                <td>
+                                                <td
+                                                style={{height: '0',
+                                                overflow: 'hidden',
+                                                paddingTop: '</tr>591.44px / 1127.34px * 100%',
+                                                position: 'relative'}}>
                                                     {this.props.islamicUniversityVideos.length ?
                                                   <ReactPlayer
                                                     url={this.props.islamicUniversityVideos?.map(univideo => {
                                                         return univideo.url
                                                     })}
-                                                    width={'220px'}
-                                                    height={'200px'}
+                                                    width='100%'
+                                                    height='100%'
                                                     controls={true}
-                                                    /> : null
+                                                    /> : <p>Please go back and create more Personalized Tags</p>
                                                 }
                                                 </td>
-                                                <td>
+                                                <td
+                                                style={{height: '0',
+                                                overflow: 'hidden',
+                                                paddingTop: '</tr>591.44px / 1127.34px * 100%',
+                                                position: 'relative'}}>
                                                  { this.props.quranVideos.length ? <ReactPlayer
                                                     url={this.props.quranVideos.map(quranVideo => {
                                                         return quranVideo.url
                                                     })}
-                                                    width={'220px'}
-                                                    height={'200px'}
+                                                    width='100%'
+                                                    height='100%'
                                                     controls={true}
                                                     />
-                                                    : null}
+                                                    : <p>Please go back and create more Personalized Tags</p>}
                                                 </td>
                                             </tr>
+                                            ) : null}
                                       </tbody>
                                     </Table>
-                                  ) : null}
-                                </div>
-                                <div className="d-flex flex-column mr-2 p-2 bg-semi-muted">
-                                    <h4 className="text-semi-muted">
-                                        Details About You:&#32;
-                                    </h4>
-                                    <p>
-                                        {this.state.aboutYou.replace(
-                                        /<(.|\n)*?>/g,
-                                        ""
-                                        )}
-                                    </p>
+                                  
                                 </div>
                               </div>
       
@@ -515,7 +538,19 @@ class ContactThree extends Component{
                     </Step>
                     <Step id="step5" hideTopNav={true} hideBottomNav={true}>
                       <div className="wizard-basic-step text-center">
-                        <h2 className="mb-2">Success!</h2>
+                        <h2 style={{color: 'rgb(67, 144, 245)', marginTop:'20px'}} className="mb-2">Please Give Us Feedback!</h2>
+                        <Form>
+                        <FormGroup>
+                                <Input
+                                    className="form-control form-control-sm"
+                                    name="feedBack"
+                                    type="text"
+                                    placeholder="Feed Back"
+                                    value={this.state.feedBack}
+                                    onChange={this.onInputChange}
+                                />
+                        </FormGroup>
+                        </Form>
                         {/* <p>
                           {this.state.id
                             ? "Claim updated successfully!"

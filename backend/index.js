@@ -92,3 +92,16 @@ app.post('/api/bulk-post', (req, res) => {
 //     })
 // })
 
+app.post('/api/feed-back-form', (req, res) => {
+    const feedBack = req.body.feedBack;
+
+    const sqlInsert = "INSERT INTO contact_form (feed_back) VALUES (?)"
+    db.query(sqlInsert, [feedBack], (err, results) => {
+        if(err){
+            console.log(err);
+          } else {
+            return res.status(200).json({"status": 200,"err": null,"response": results});
+          }
+    })
+})
+
