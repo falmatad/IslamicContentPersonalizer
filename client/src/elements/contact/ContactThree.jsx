@@ -208,6 +208,13 @@ class ContactThree extends Component{
         }
        
      }
+     handleInputChange (value) {
+      if (value.length > 2) {
+        return this.refs.tagsinput.accept()
+      }
+  
+      this.setState({tag: value})
+    }
      handelSubmit(e) {
          
             const commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www'];
@@ -217,7 +224,9 @@ class ContactThree extends Component{
 
             // Convert to lowercase
             let aboutYouLowerCase = aboutYou.toLowerCase();
-    
+            let lowertags1 = tags1.map(tag => {return tag.toLowerCase()});
+            let lowertags2 = tags2.map(tag => {return tag.toLowerCase()});
+
             // replace unnesessary chars. leave only chars, numbers and space
             aboutYouLowerCase = aboutYouLowerCase.replace(/[^\w\d ]/g, '');
     
@@ -238,7 +247,7 @@ class ContactThree extends Component{
                 return tempArray
             }).flat(2)
 
-            let allTags = {heartSoftner: [...tags1, ...tags2, ...aboutYouResult], knowledge: [...mappedTags3]}
+            let allTags = {heartSoftner: [...lowertags1, ...lowertags2, ...aboutYouResult], knowledge: [...mappedTags3]}
 
             const channels = [{type: 'al-amaan', id: 'UC7hxIHncBbcHKUxGM67KZ4g'}, {type: 'shyk-jamel', id: 'UCpOuNtadjyviGvy7p4Va5tA'}, {type: 'quran', id: 'UCPZvLwo3dIUoRMGSRPGWY3A'}, {type: 'knowledge', id: 'UC8DILJwxM8wNTz6XDo2ZbNw'}]
             
@@ -336,6 +345,7 @@ class ContactThree extends Component{
                             <div className="col-12 row">
                             <FormGroup className="col-6">
                                 <Label>Aspect of my Religion I struggle with:</Label>
+                                <form>
                                 <TagsInput
                                     value={this.state.tags1}
                                     name="tags1"
@@ -344,7 +354,9 @@ class ContactThree extends Component{
                                       }}
                                     inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}                                
                                     />
+                                </form>
                                 <Label>The state of my heart and soul right now:</Label>
+                                <form>
                                 <TagsInput
                                     value={this.state.tags2}
                                     name="tags2"
@@ -352,7 +364,9 @@ class ContactThree extends Component{
                                         this.handleChange("tags2", value);
                                       }}
                                     inputProps={{ placeholder:'Type a single word and hit enter. Please watch spelling' }}
+                                    onChangeInput={this.handleInputChange}
                                 />
+                                </form>
                             </FormGroup>
                             
                             <FormGroup className="col-6">
