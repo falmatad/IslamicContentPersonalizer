@@ -9,7 +9,6 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import {FaLinkedinIn } from "react-icons/fa";
 import axios from 'axios';
-import ReactPlayer from 'react-player/youtube'
 const SocialShare = [
     {Social: <FaLinkedinIn /> , link: 'https://www.linkedin.com/in/'}
 ]
