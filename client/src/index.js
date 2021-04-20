@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 
 import './index.scss';
 
-import KnowYourLordLikeHashim from './dark/KnowYourLordLikeHashim';
+import App from './component/App';
 
-import error404 from "./elements/error404";
+import error404 from "./component/error404";
 import HttpsRedirect from 'react-https-redirect'
 
 import { BrowserRouter, Switch, Route  } from 'react-router-dom';
@@ -19,7 +19,7 @@ class Root extends Component{
             <HttpsRedirect>
             <BrowserRouter basename={'/'}>
                 <Switch>
-                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={KnowYourLordLikeHashim}/>
+                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={App}/>
                     
                     <Route path={`${process.env.PUBLIC_URL}/404`} component={error404}/>
                     <Route component={error404}/>
